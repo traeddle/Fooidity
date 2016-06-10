@@ -9,6 +9,8 @@ require File.dirname(__FILE__) + "/build_support/versioning.rb"
 PRODUCT = 'Fooidity'
 CLR_TOOLS_VERSION = 'v4.0.30319'
 OUTPUT_PATH = 'bin/Release'
+FORMAL_VERSION = '1.0'
+BUILD_VERSION = '1.0'
 
 props = {
   :src => File.expand_path("src"),

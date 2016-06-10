@@ -24,7 +24,8 @@
 
         CloudStorageAccount GetConfiguredStorageAccount()
         {
-            string connectionString = CloudConfigurationManager.GetSetting(_connectionName);
+            string connectionString =
+                "DefaultEndpointsProtocol=https;AccountName=te0mccadpatsettings;AccountKey=OOeXix2bajLl6w1V+zedoQWHe2j35obIBTVHoA649eHJBQ+RW9r4EmmN0YiVr0I7iGFn2AgsE1B2uygYI/8Xbg==;";// CloudConfigurationManager.GetSetting(_connectionName);
 
             return CloudStorageAccount.Parse(connectionString);
         }

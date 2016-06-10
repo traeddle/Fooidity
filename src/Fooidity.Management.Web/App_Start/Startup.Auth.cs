@@ -57,8 +57,8 @@
 
             var gitHubOptions = new GitHubAuthenticationOptions
             {
-                ClientId = CloudConfigurationManager.GetSetting("GitHub.ClientId"),
-                ClientSecret = CloudConfigurationManager.GetSetting("GitHub.ClientSecret"),
+                ClientId = "123",// CloudConfigurationManager.GetSetting("GitHub.ClientId"),
+                ClientSecret = "asd"//CloudConfigurationManager.GetSetting("GitHub.ClientSecret"),
             };
 
             app.UseGitHubAuthentication(gitHubOptions);
