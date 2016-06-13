@@ -35,8 +35,8 @@
 
             builder.ConfigureFoodityClient(x =>
             {
-                x.Host("http://api.fooidity.com/");
-                x.ApplicationKey("[need application id]");
+                x.Host("http://localhost:1196");
+                x.ApplicationKey("pnxhm9n6ur77d7j4x9izttq4tndujkymzqjqhdwewirsasucryxo");
             });
 
             builder.RegisterCodeSwitch<Feature_SupportSSL>();
