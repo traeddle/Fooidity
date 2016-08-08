@@ -10,8 +10,7 @@
     using Management.Models;
     using Microsoft.AspNet.SignalR;
     using Queries;
-
-
+    using Caching;
     public class ApplicationHub :
         Hub
     {
@@ -20,16 +19,20 @@
         readonly IQueryHandler<IListApplicationCodeFeatures, IEnumerable<ICodeFeatureState>> _listApplicationCodeFeatures;
         readonly ICommandHandler<IRegisterApplicationContext> _registerApplicationContext;
         readonly ICommandHandler<IRegisterCodeFeature> _registerCodeFeature;
+        readonly ICodeSwitchContainerScope _containerScope;
 
         public ApplicationHub(IQueryHandler<IGetApplicationByKey, IOrganizationApplicationKey> getApplicationKey,
             ICommandHandler<IRegisterCodeFeature> registerCodeFeature,
             IQueryHandler<IListApplicationCodeFeatures, IEnumerable<ICodeFeatureState>> listApplicationCodeFeatures,
-            ICommandHandler<IRegisterApplicationContext> registerApplicationContext)
+            ICommandHandler<IRegisterApplicationContext> registerApplicationContext,
+            ICodeSwitchContainerScope containerScope
+            )
         {
             _getApplicationKey = getApplicationKey;
             _registerCodeFeature = registerCodeFeature;
             _listApplicationCodeFeatures = listApplicationCodeFeatures;
             _registerApplicationContext = registerApplicationContext;
+            _containerScope = containerScope;
         }
 
         public override async Task OnConnected()
@@ -94,5 +97,26 @@
                 }
             }
         }
+
+        public async Task UpdateCacheServer(CodeFeatureStateUpdated message)
+        {
+            IUpdateCodeFeatureCache codeCache;
+            if (_containerScope.TryResolve(out codeCache))
+            {
+                IUpdateCodeFeature update = new UpdateCodeFeature(new CodeFeatureId(message.CodeFeatureId), message.Enabled,
+                    message.Timestamp, message.CommandId ?? Guid.NewGuid());
+
+                 codeCache.UpdateCache(update);
+
+
+            }
+            IHubContext context = GlobalHost.ConnectionManager.GetHubContext<ApplicationHub>();
+        
+            await context.Clients.All.notifyCodeFeatureStateUpdated(message);
+
+
+        }
+
+
     }
 }

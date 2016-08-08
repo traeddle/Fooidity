@@ -80,6 +80,11 @@
             builder.RegisterType<GetApplicationKeyQueryHandler>()
                 .As<IQueryHandler<IGetApplicationByKey, IOrganizationApplicationKey>>();
 
+            builder.RegisterType<CodeSwitchContainerScope>()
+              .As<ICodeSwitchContainerScope>()
+              .ExternallyOwned();
+
+
             builder.RegisterType<RegisterCodeFeatureCommandHandler>()
                 .As<ICommandHandler<IRegisterCodeFeature>>();
 

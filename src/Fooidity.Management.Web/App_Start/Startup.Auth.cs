@@ -57,8 +57,18 @@
 
             var gitHubOptions = new GitHubAuthenticationOptions
             {
-                ClientId = "3f40d105ba3888d9e6a7",// CloudConfigurationManager.GetSetting("GitHub.ClientId"),
-                ClientSecret = "b3f8a6578549ee0f02640664c6bcde9fdaa1ad9c"//CloudConfigurationManager.GetSetting("GitHub.ClientSecret"),
+
+                //Travis
+                //3f40d105ba3888d9e6a7
+                //b3f8a6578549ee0f02640664c6bcde9fdaa1ad9c
+
+                //Koushik
+                //81a67bb2917c48a4e67f
+                //f1ccb7d09db2f88fdfd9b5e9cd61ac2f5dd19fc5
+
+
+                ClientId = "81a67bb2917c48a4e67f",// CloudConfigurationManager.GetSetting("GitHub.ClientId"),
+                ClientSecret = "f1ccb7d09db2f88fdfd9b5e9cd61ac2f5dd19fc5"//CloudConfigurationManager.GetSetting("GitHub.ClientSecret"),
             };
 
             app.UseGitHubAuthentication(gitHubOptions);
